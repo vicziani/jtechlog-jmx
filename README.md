@@ -1,5 +1,5 @@
-﻿JTechLog JPA lazy loading
-=========================
+﻿JTechLog Java monitorozás és menedzsment
+========================================
 
 Ez a program a JTechLog (<http://jtechlog.blogspot.com>) blog "Java monitorozás és menedzsment" cikkéhez 
 készült példaprogram. 
