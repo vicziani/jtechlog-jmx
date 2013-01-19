@@ -2,9 +2,9 @@ package jtechlog.jmx;
 
 public interface CounterMBean {
 
-    public long getValue();
+    public int getValue();
 
-    public void setValue(long counter);
+    public void setValue(int counter);
 
     public void storno();
 }

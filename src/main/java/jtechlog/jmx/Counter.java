@@ -4,28 +4,32 @@ import javax.management.AttributeChangeNotification;
 import javax.management.MBeanNotificationInfo;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Counter
         extends NotificationBroadcasterSupport
         implements CounterMBean {
 
-    private long value;
+    private AtomicInteger value = new AtomicInteger();
 
-    public long getValue() {
-        return value;
+    @Override
+    public int getValue() {
+        return value.get();
     }
 
-    public void setValue(long value) {
-        this.value = value;
+    @Override
+    public void setValue(int i) {
+        value.set(i);
     }
 
+    @Override
     public void storno() {
-        value = 0;
+        value.set(0);
     }
 
     synchronized public void incrementCounter() {
-        value++;
-        if (value > 10) {
+        int i = value.incrementAndGet();
+        if (i % 10 == 0) {
             Notification n =
                     new AttributeChangeNotification(this,
                     sequenceNumber++,
@@ -33,8 +37,8 @@ public class Counter
                     "Counter value has changed",
                     "Counter value",
                     "long",
-                    value - 1,
-                    value);
+                    i - 1,
+                    i);
 
             sendNotification(n);
 
